@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import List from "./components/List";
+import AddCard from "./components/AddCard";
+
+//Declare expected state
+//When passing and using interface, you can use export, so you won't need to redefine it again.
+export interface Istate {
+  people: {
+    name: string;
+    age: number;
+    url: string;
+    note?: string;
+  }[];
+}
 
 function App() {
+  const [people, setPeople] = useState<Istate["people"]>([
+    {
+      name: "Cristiano ronaldo",
+      age: 38,
+      url: "https://images.hellomagazine.com/imagenes/celebrities/20220530141601/cristiano-ronaldo-toned-torso-sauna-selfie/0-689-676/cristiano-ronaldo-toned-torso-sauna-selfie-t.jpg",
+      note: "SIUUUU",
+    },
+  ]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>People's list</h1>
+      <List people={people} />
+      <AddCard people={people} setPeople={setPeople} />
     </div>
   );
 }
